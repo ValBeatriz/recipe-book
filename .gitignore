@@ -1,0 +1,6 @@
+# Ignorar directorio node_modules en la raíz del proyecto
+node_modules/
+
+# Ignorar archivos lock de npm/yarn
+package-lock.json
+yarn.lock
