@@ -14,8 +14,14 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.5",
     "rimraf": "^5.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "env-var": "^7.4.1",
+    "pg": "^8.11.5"
   }
 }
