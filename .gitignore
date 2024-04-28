@@ -4,3 +4,4 @@ node_modules/
 # Ignorar archivos lock de npm/yarn
 package-lock.json
 yarn.lock
+dist/*

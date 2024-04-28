@@ -1,12 +1,10 @@
 import { Router } from "express";
 import { DishController } from "../controllers";
-import { PlatoRepository } from "../repositories";
 
-export class DishRoutes{
-    static get routes(): Router{
+export class DishRoutes {
+    static get routes(): Router {
         const router = Router();
-        const repo = new PlatoRepository;
-        const controller = new DishController(repo);
+        const controller = new DishController();
 
         router.post('/', controller.createdish);
         router.put('/:uuid', controller.updateDish);

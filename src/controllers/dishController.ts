@@ -1,38 +1,33 @@
-import { UUID } from 'crypto';
-import {Request,Response} from 'express'
 
-import {PlatoRepository} from '../repositories'
+import { Request, Response } from 'express'
+import { createDishUseCase, deleteDishUseCase, getAllDishUseCase, getByIdDishUseCase, updateDishUseCase } from '../useCases'
 import { PlatoEntity } from '../entities';
-const { v4: uuidv4, validate } = require('uuid');
 
 export class DishController{
     constructor(
-        private readonly platoRepository: PlatoRepository
-    ){}
+    ) {}
 
-    createdish = (req:Request, res: Response) =>{
+    createdish = (req: Request, res: Response) =>{
         const dish = new PlatoEntity(
             req.body.Name,
             req.body.Preparation,
             req.body.Ingredients,
             req.body.IdCategory,
         )
-        this.platoRepository.create(dish)
+        createDishUseCase(dish)
             .then(dish => res.json(dish))
             .catch(err => res.status(500).json(err));
     }
 
     getDishList = (req:Request, res: Response) =>{
        
-        this.platoRepository.getAll()
+        getAllDishUseCase()
             .then(dish => res.json(dish))
             .catch(err => res.status(500).json(err));
     }
 
     getDishById = (req:Request, res: Response) =>{
-       
-        const uuid = uuidv4(req.params.uuid);
-        this.platoRepository.getById(uuid)
+        getByIdDishUseCase(req.params.uuid)
             .then(dish => res.json(dish))
             .catch(err => res.status(500).json(err));
     }
@@ -46,16 +41,14 @@ export class DishController{
             req.body.IdCategory,
         )
        
-        const uuid = uuidv4(req.params.uuid);
-        this.platoRepository.update(uuid, dish)
+        updateDishUseCase(req.params.uuid, dish)
             .then(dish => res.json(dish))
             .catch(err => res.status(500).json(err));
     }
 
     deleteDish = (req:Request, res: Response) =>{
        
-        const uuid = uuidv4(req.params.uuid);
-        this.platoRepository.delete(uuid)
+        deleteDishUseCase(req.params.uuid)
             .then(dish => res.json(dish))
             .catch(err => res.status(500).json(err));
     }
