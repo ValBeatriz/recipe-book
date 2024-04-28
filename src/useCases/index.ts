@@ -1,0 +1,5 @@
+export * from './createDishUseCase'
+export * from './deleteDishUseCase'
+export * from './getAllDishUseCase'
+export * from './getByIdDishUseCase'
+export * from './updateDishUseCase'
