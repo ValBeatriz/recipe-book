@@ -4,8 +4,8 @@ import { PlatoEntity } from '../entities'
 import { rejects } from 'assert'
 import { UUID } from 'crypto'
 
-export const platoRepository = {
-    create: async (plato: PlatoEntity): Promise<PlatoEntity | null> => {
+export class PlatoRepository {
+    public create = async (plato: PlatoEntity): Promise<PlatoEntity | null> => {
 
         return new Promise<PlatoEntity | null>((resolve, reject) => {
             pool.connect((err) => {
@@ -34,8 +34,8 @@ export const platoRepository = {
                 });
             })
         })
-    },
-    getAll: async (): Promise<PlatoEntity[]> => {
+    }
+    public getAll = async (): Promise<PlatoEntity[]> => {
         return new Promise((resolve,reject) => {
             pool.query("SELECT * FROM plato ",(error, results) => {
                 pool.end();
@@ -50,8 +50,8 @@ export const platoRepository = {
                 return;
             });
         });
-    },
-    getById: async (id: UUID): Promise<PlatoEntity | null> => {
+    }
+    public getById = async (id: UUID): Promise<PlatoEntity | null> => {
         return new Promise((resolve,reject) => {
             pool.query(`SELECT * FROM plato where id = ${id}`,(error, results) => {
                 pool.end();
@@ -71,8 +71,8 @@ export const platoRepository = {
                 return;
             });
         });
-    },
-    update: async (id: UUID, plato: PlatoEntity): Promise<PlatoEntity | null> => {
+    }
+    public update = async (id: UUID, plato: PlatoEntity): Promise<PlatoEntity | null> => {
         return new Promise((resolve,reject) => {
             pool.query(`UPDATE plato SET nombre=${plato.nombre}, ingredientes=${plato.ingredientes}, preparacion=${plato.preparacion} where id = ${id}`,(error, results) => {
                 pool.end();
@@ -92,8 +92,8 @@ export const platoRepository = {
                 return;
             });
         });
-    },
-    delete: async (id: UUID): Promise<boolean> => {
+    }
+    public delete =  async (id: UUID): Promise<boolean> => {
         return new Promise((resolve,reject) => {
             pool.query(`DELETE FROM plato where id = ${id}`,(error, results) => {
                 pool.end();

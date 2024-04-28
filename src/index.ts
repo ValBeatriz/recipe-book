@@ -1,5 +1,5 @@
 import { error } from "console";
-import pool from "./adapters/postgresqlAdapter";
+//import pool from "./adapters/postgresqlAdapter";
 
 console.log("runing test...");
 // pool.connect((err:any) => {
