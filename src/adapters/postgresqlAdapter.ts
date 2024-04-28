@@ -10,4 +10,4 @@ const pool = new Pool({
     ssl: true
 });
 
-export default pool;
+export {pool};
