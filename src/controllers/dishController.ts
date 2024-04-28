@@ -5,7 +5,7 @@ import {PlatoRepository} from '../repositories'
 import { PlatoEntity } from '../entities';
 const { v4: uuidv4, validate } = require('uuid');
 
-export class dishController{
+export class DishController{
     constructor(
         private readonly platoRepository: PlatoRepository
     ){}
