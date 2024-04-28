@@ -1,22 +1,20 @@
-import { resolve } from 'path'
 import { pool } from '../adapters'
 import { PlatoEntity } from '../entities'
-import { rejects } from 'assert'
-import { UUID } from 'crypto'
 
 export class PlatoRepository {
-    public create = async (plato: PlatoEntity): Promise<PlatoEntity | null> => {
+    static create = async (plato: PlatoEntity): Promise<PlatoEntity | null> => {
 
+        console.log('plato', plato)
         return new Promise<PlatoEntity | null>((resolve, reject) => {
             pool.connect((err) => {
+                // pool.end();
                 if (err) {
                     console.error("Error connecting yo postgre", err);
                     reject(err);
                     return;
                 }
 
-                pool.query(`INSERT INTO plato (nombre, descripcion, preparacion, ingredientes, id_categoria) values (${plato.nombre},${plato.descripcion},${plato.preparacion},${plato.ingredientes},${plato.id_categoria})`, (queryError, result) => {
-                    pool.end();
+                pool.query(`INSERT INTO plato (nombre, descripcion, preparacion, ingredientes, id_categoria) values ('${plato.nombre}','${plato.descripcion}','${plato.preparacion}','${plato.ingredientes}','${plato.id_categoria}')`, (queryError, result) => {
 
                     if (queryError) {
                         console.error("Error on the query", queryError);
@@ -26,7 +24,7 @@ export class PlatoRepository {
 
                     const nuevoPlato: PlatoEntity = {
                         ...plato,
-                        id: result.rows[0].id
+                        // id: result.rows[0].id
                     }
                     resolve(nuevoPlato);
                     return;
@@ -35,10 +33,10 @@ export class PlatoRepository {
             })
         })
     }
-    public getAll = async (): Promise<PlatoEntity[]> => {
+    static getAll = async (): Promise<PlatoEntity[]> => {
         return new Promise((resolve,reject) => {
             pool.query("SELECT * FROM plato ",(error, results) => {
-                pool.end();
+                // pool.end();
 
                 if (error) {
                     console.error("Error on the query", error);
@@ -51,10 +49,10 @@ export class PlatoRepository {
             });
         });
     }
-    public getById = async (id: UUID): Promise<PlatoEntity | null> => {
+    static getById = async (id: string): Promise<PlatoEntity | null> => {
         return new Promise((resolve,reject) => {
             pool.query(`SELECT * FROM plato where id_plato = '${id}'`,(error, results) => {
-                pool.end();
+                // pool.end();
 
                 console.log(results);
                 console.log(`SELECT * FROM plato where id_plato = '${id}'`);
@@ -75,10 +73,10 @@ export class PlatoRepository {
             });
         });
     }
-    public update = async (id: UUID, plato: PlatoEntity): Promise<PlatoEntity | null> => {
+    static update = async (id: string, plato: PlatoEntity): Promise<PlatoEntity | null> => {
         return new Promise((resolve,reject) => {
-            pool.query(`UPDATE plato SET nombre=${plato.nombre}, ingredientes=${plato.ingredientes}, preparacion=${plato.preparacion} where id = ${id}`,(error, results) => {
-                pool.end();
+            pool.query(`UPDATE plato SET nombre='${plato.nombre}', ingredientes='${plato.ingredientes}', preparacion='${plato.preparacion}' where id_plato = '${id}'`,(error, results) => {
+                // pool.end();
 
                 if (error) {
                     console.error("Error on the query", error);
@@ -96,10 +94,10 @@ export class PlatoRepository {
             });
         });
     }
-    public delete =  async (id: UUID): Promise<boolean> => {
+    static delete =  async (id: string): Promise<boolean> => {
         return new Promise((resolve,reject) => {
-            pool.query(`DELETE FROM plato where id = ${id}`,(error, results) => {
-                pool.end();
+            pool.query(`DELETE FROM plato where id_plato = '${id}'`,(error, results) => {
+                // pool.end();
 
                 if (error) {
                     console.error("Error on the query", error);

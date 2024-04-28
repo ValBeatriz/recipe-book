@@ -1,7 +1,6 @@
-import { UUID } from "crypto";
 import { PlatoEntity } from "../entities";
-import { platoRepository } from "../repositories";
+import { PlatoRepository } from "../repositories";
 
-export const updateDishUseCase = async (id: UUID, dish: PlatoEntity): Promise<PlatoEntity | null> => {
-    return await platoRepository.update(id, dish);
+export const updateDishUseCase = async (id: string, dish: PlatoEntity): Promise<PlatoEntity | null> => {
+    return await PlatoRepository.update(id, dish);
 };

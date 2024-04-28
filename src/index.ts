@@ -1,6 +1,7 @@
 import { envs } from "./config";
 import { Server, AppRoutes} from "./presentation";
 
+
 (() => {
     main();
 })()

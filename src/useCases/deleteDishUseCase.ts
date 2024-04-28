@@ -1,7 +1,5 @@
-import { UUID } from "crypto";
-import { PlatoEntity } from "../entities";
-import { platoRepository } from "../repositories";
+import { PlatoRepository } from "../repositories";
 
-export const deleteDishUseCase = async (id: UUID): Promise<boolean> => {
-    return await platoRepository.delete(id);
+export const deleteDishUseCase = async (id: string): Promise<boolean> => {
+    return await PlatoRepository.delete(id);
 };
