@@ -53,8 +53,11 @@ export class PlatoRepository {
     }
     public getById = async (id: UUID): Promise<PlatoEntity | null> => {
         return new Promise((resolve,reject) => {
-            pool.query(`SELECT * FROM plato where id = ${id}`,(error, results) => {
+            pool.query(`SELECT * FROM plato where id_plato = '${id}'`,(error, results) => {
                 pool.end();
+
+                console.log(results);
+                console.log(`SELECT * FROM plato where id_plato = '${id}'`);
 
                 if (error) {
                     console.error("Error on the query", error);
