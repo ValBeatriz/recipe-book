@@ -1,11 +1,13 @@
-import { error } from "console";
-//import pool from "./adapters/postgresqlAdapter";
+import { envs } from "./config";
+import { Server, AppRoutes} from "./presentation";
 
-console.log("runing test...");
-// pool.connect((err:any) => {
-//     if(!err){
-//         console.log("Conexion exitosa!!");
-//     } else{
-//         console.error("",err);
-//     }
-// });
+(() => {
+    main();
+})()
+
+async function main() {
+    new Server({
+        port: envs.SERVER_PORT,
+        routes: AppRoutes.routes
+    }).start();
+}
