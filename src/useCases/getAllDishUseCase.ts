@@ -1,6 +1,8 @@
 import { PlatoRepository } from "../repositories";
-import { PlatoEntity } from "../entities";
+import { PaginationModel } from "../controllers/model/paginationModel";
+import { RecipePagingModel } from "../controllers/model/recipePagingModel";
 
-export const getAllDishUseCase = async (): Promise<PlatoEntity[]> => {
-    return await PlatoRepository.getAll();
+export const getAllDishUseCase = async (pag: PaginationModel): Promise<RecipePagingModel> => {
+    const count = await PlatoRepository.getTotalItem(pag.Search);
+    return await PlatoRepository.getAll(pag, count);
 };
