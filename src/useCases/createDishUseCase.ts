@@ -1,6 +1,7 @@
 import { PlatoEntity } from "../entities";
-import { PlatoRepository } from "../repositories";
+import { PlatoRepository, CategoriaRepository } from "../repositories";
 
-export const createDishUseCase = async (dish: PlatoEntity): Promise<PlatoEntity | null> => {
-    return await PlatoRepository.create(dish);
+export const createDishUseCase = async (dish: PlatoEntity): Promise<void> => {
+    await CategoriaRepository.getById(dish.id_categoria);
+    await PlatoRepository.create(dish);
 };
