@@ -4,6 +4,7 @@ import { RecipeDetailModel } from '../controllers/model/recipeDetailModel'
 import { recipeEntityToModelMapper, listRecipesEntityToModelMapper } from '../mapper'
 import { PaginationModel } from '../controllers/model/paginationModel'
 import { RecipePagingModel } from '../controllers/model/recipePagingModel'
+import { ErrorModel } from '../controllers/model/error'
 
 export class PlatoRepository {
     static create = async (plato: PlatoEntity): Promise<void> => {
@@ -20,7 +21,7 @@ export class PlatoRepository {
 
                     if (queryError) {
                         console.error("Error on the query", queryError);
-                        reject(new Error("Internal server error"));
+                        reject(new ErrorModel());
                         return;
                     }
                     console.log('OK');
@@ -54,7 +55,7 @@ export class PlatoRepository {
 
                 if (error) {
                     console.error("Error on the query", error);
-                    reject(new Error("Internal server error"));
+                    reject(new ErrorModel());
                     return;
                 }
 
@@ -72,12 +73,12 @@ export class PlatoRepository {
 
                 if (error) {
                     console.error("Error on the query", error);
-                    reject(new Error("Internal server error"));
+                    reject(new ErrorModel());
                     return;
                 }
 
-                if(results.rows.length === 0){
-                    reject(new Error("Recipe not found"));
+                if(results.rows.length === 0) {
+                    reject(new ErrorModel(404, "Recipe not found"));
                 } else {
                     const model = recipeEntityToModelMapper(results.rows[0] as PlatoEntity);
                     resolve(model);
@@ -93,14 +94,14 @@ export class PlatoRepository {
 
                 if (error) {
                     console.error("Error on the query", error);
-                    reject(new Error("Internal server error"));
+                    reject(new ErrorModel());
                     return;
                 }
 
                 if(results.rowCount && results.rowCount > 0){
                     resolve();
                 } else {
-                    reject(new Error("No record was modified"));
+                    reject(new ErrorModel(404, "No record was modified"));
                 }
             });
         });
@@ -108,18 +109,17 @@ export class PlatoRepository {
     static delete =  async (id: string): Promise<void> => {
         return new Promise((resolve,reject) => {
             pool.query(`DELETE FROM plato where id_plato = '${id}'`,(error, results) => {
-                // pool.end();
 
                 if (error) {
                     console.error("Error on the query", error);
-                    reject(new Error("Internal server error"));
+                    reject(new ErrorModel());
                     return;
                 }
 
                 if(results.rowCount && results.rowCount > 0){
                     resolve();
                 } else {
-                    reject(new Error("No record was delete"));
+                    reject(new ErrorModel(404, "No record was delete"));
                 }
 
                 return;
@@ -142,7 +142,7 @@ export class PlatoRepository {
 
                 if (error) {
                     console.error("Error on the query", error);
-                    reject(new Error("Internal server error"));
+                    reject(new ErrorModel());
                     return;
                 }
                 resolve(results.rows[0].countdata as number);

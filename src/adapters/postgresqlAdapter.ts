@@ -1,6 +1,5 @@
-import postgre, { Pool } from 'pg';
+import { Pool } from 'pg';
 import { envs } from '../config';
-import { env } from 'process';
 
 const pool = new Pool({
     host: envs.POSTGRE_HOST,

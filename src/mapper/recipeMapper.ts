@@ -22,3 +22,10 @@ export const recipeEntityToModelMapper = async (entity: PlatoEntity): Promise<Re
  
     return model;
 };
+
+export const recipeRequestToEntityMapper = async (obj: any): Promise<PlatoEntity> => {
+    
+    const entity: PlatoEntity = new PlatoEntity(obj.Name, obj.Preparation, obj.Ingredients, obj.IdCategory);
+ 
+    return entity;
+};
