@@ -2,6 +2,7 @@ import { pool } from '../adapters'
 import { CategoriaEntity } from '../entities'
 import { CategoryModel } from '../controllers/model/categoryModel';
 import { categoryEntityToModelMapper, listCategoryEntityToModelMapper } from '../mapper';
+import { ErrorModel } from '../controllers/model/error';
 
 export class CategoriaRepository {
     
@@ -11,7 +12,7 @@ export class CategoriaRepository {
 
                 if (error) {
                     console.error("Error on the query", error);
-                    reject(new Error("Internal server error"));
+                    reject(new ErrorModel());
                     return;
                 }
 
@@ -28,12 +29,12 @@ export class CategoriaRepository {
 
                 if (error) {
                     console.error("Error on the query", error);
-                    reject(new Error("Internal server error"));
+                    reject(new ErrorModel());
                     return;
                 }
 
                 if(results.rows.length === 0){
-                    reject(new Error("Category not found"));
+                    reject(new ErrorModel(404, "Category not found"));
                 } else {
                     const model = await categoryEntityToModelMapper(results.rows[0] as CategoriaEntity);
                     resolve(model);
