@@ -18,7 +18,8 @@ export class DishController{
 
     getDishList = async (req:Request, res: Response) =>{
         
-        const paging = await paginationRequestToModelMapper(req?.query);
+        const paging = await paginationRequestToModelMapper(req);
+
         getAllDishUseCase(paging)
             .then(dish => res.json(dish))
             .catch(err =>  res.status(err.CodeError).json(err));
