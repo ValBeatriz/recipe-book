@@ -17,11 +17,19 @@ Este repositorio contiene un proyecto para la gestión de recetas de cocina. La 
 git clone https://github.com/ValBeatriz/recipe-book.git
 ```
 
+
 2- Instalar dependencias ⚙:
 
 ```bash
 cd recipe-book 
 npm install
+```
+
+
+3- Levantamiento de servicio ⚙:
+
+```bash
+npm run dev
 ```
 
 
